@@ -54,6 +54,7 @@ namespace Backer
 
             if (isError)
             {
+                Console.WriteLine("Reached end of main");
                 Console.ReadLine();
             }
             

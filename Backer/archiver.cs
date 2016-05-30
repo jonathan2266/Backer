@@ -6,6 +6,7 @@ namespace Backer
 {
     public class archiver
     {
+        private bool isError = false;
         private List<string> _local = new List<string>();
         private List<string> _destination = new List<string>();
         public void addLocalDestPair(string local, string destination)
@@ -24,6 +25,12 @@ namespace Backer
             for (int i = 0; i < _local.Count; i++)
             {
                 DirectoryCopy(_local[i], _destination[i] + "\\" + fixedDate, true);   
+            }
+
+            if (isError)
+            {
+                Console.WriteLine("Reached end of a thread");
+                Console.ReadLine();
             }
         }
         private void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
@@ -47,7 +54,15 @@ namespace Backer
             foreach (FileInfo file in files)
             {
                 string temppath = Path.Combine(destDirName, file.Name);
-                file.CopyTo(temppath, false);
+                try
+                {
+                    file.CopyTo(temppath, false);
+                }
+                catch (Exception e)
+                {
+                    isError = true;
+                    Console.WriteLine("File not copied " + e);
+                }
             }
 
             if (copySubDirs)
