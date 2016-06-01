@@ -24,7 +24,17 @@ namespace Backer
 
             for (int i = 0; i < _local.Count; i++)
             {
-                DirectoryCopy(_local[i], _destination[i] + "\\" + fixedDate, true);   
+                FileAttributes att = File.GetAttributes(_local[i]);
+
+                if (att.HasFlag(FileAttributes.Directory))
+                {
+                    DirectoryCopy(_local[i], _destination[i] + "\\" + fixedDate, true);
+                }
+                else
+                {
+                    FileCopy(_local[i], _destination[i] + "\\" + fixedDate);
+                }
+                   
             }
 
             if (isError)
@@ -73,6 +83,23 @@ namespace Backer
                     DirectoryCopy(subdir.FullName, temppath, copySubDirs);
                 }
             }
+        }
+        private void FileCopy(string source, string destination)
+        {
+            if (!Directory.Exists(destination))
+            {
+                Directory.CreateDirectory(destination);
+            }
+            try
+            {
+                File.Copy(source, Path.Combine(destination, Path.GetFileName(source)));
+            }
+            catch (Exception e)
+            {
+                isError = true;
+                Console.WriteLine("Failed to copy file " + e);
+            }
+            
         }
     }
 }

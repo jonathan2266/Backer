@@ -16,6 +16,7 @@ namespace Backer
             List<string> destination = new List<string>();
             archiver[] _archiver;
             List<Thread> threadList = new List<Thread>();
+
             checkEnvironement();
 
             readFileContents(local, destination);
@@ -25,6 +26,7 @@ namespace Backer
 
             for (int i = 0; i < local.Count; i++)
             {
+                bool added = false;
                 for (int j = 0; j < allDrives.Length; j++)
                 {
                     if (local[i].Contains(allDrives[j].Name))
@@ -34,7 +36,13 @@ namespace Backer
                             _archiver[j] = new archiver();
                         }
                         _archiver[j].addLocalDestPair(local[i], destination[i]);
+                        added = true;
                     }
+                }
+                if (added == false)
+                {
+                    isError = true;
+                    Console.WriteLine(local[i] + " Drive not found on local pc");
                 }
             }
 
@@ -109,8 +117,17 @@ namespace Backer
                         }
                         else
                         {
-                            isError = true;
-                            Console.WriteLine(_local + " and " + _destination + " something is wrong ");
+                            try
+                            {
+                                FileAttributes att = File.GetAttributes(_local);
+                                local.Add(_local);
+                                destination.Add(_destination);
+                            }
+                            catch (Exception)
+                            {
+                                isError = true;
+                                Console.WriteLine(_local + " and " + _destination + " something is wrong ");
+                            }
                         }
                     }
                 }
