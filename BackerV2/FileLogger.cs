@@ -40,7 +40,7 @@ namespace BackerV2
                         Console.WriteLine("Something went bad in the logging class :( " + e);
                         isFunctional = false;
                         _shouldStop = true;
-                        Console.WriteLine();
+                        Console.ReadLine();
                     }
                 }
                 Thread.Sleep(10);

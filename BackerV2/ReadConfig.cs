@@ -4,7 +4,7 @@ using System.IO;
 
 namespace BackerV2
 {
-    public class ReadConfig //could be abstract or with interface to be able to read diffrent files
+    public class ReadConfig //could be abstract or with interface to be able to read different files
     {
         private string configFile = "backer.cnf";
         Ilogger logger;

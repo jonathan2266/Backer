@@ -20,11 +20,7 @@ namespace BackerV2
         }
         public void transferFiles()
         {
-            DateTime localDate = DateTime.Now;
-            string fixedDate = localDate.ToString();
-            fixedDate = fixedDate.Replace('/', '_');
-            fixedDate = fixedDate.Replace(':', '-');
-            fixedDate = fixedDate.Replace(" ", "__");
+            string fixedDate = DateFixer.fix(DateTime.Now);
 
             for (int i = 0; i < _local.Count; i++)
             {
@@ -44,11 +40,9 @@ namespace BackerV2
                 {
                     logger.log(e.Message);
                 }
-
-
-
             }
         }
+
         private void DirectoryCopy(string sourceDirName, string destDirName, bool copySubDirs)
         {
             DirectoryInfo dir = new DirectoryInfo(sourceDirName);
