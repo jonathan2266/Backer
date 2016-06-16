@@ -15,4 +15,4 @@ Dunno :p
 
 Awesome features:
 Each copy from a drive runs on its own thread.
-logs are written from a diffrent thread #WOWMG =]
+logs are written from a different thread #WOWMG =]
