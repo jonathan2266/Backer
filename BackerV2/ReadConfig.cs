@@ -6,13 +6,14 @@ namespace BackerV2
 {
     public class ReadConfig //could be abstract or with interface to be able to read different files
     {
-        private string configFile = "backer.cnf";
+        private string configFile = "";
         Ilogger logger;
-        public ReadConfig(Ilogger logger)
+        public ReadConfig(Ilogger logger, string configFile)
         {
             this.logger = logger;
+            this.configFile = configFile;
         }
-        public void readSettings(List<string> local, List<string> destination)
+        public void readSettings(List<string> line1, List<string> line2)
         {
             StreamReader r = new StreamReader(configFile);
             string contents = r.ReadLine();
@@ -56,16 +57,16 @@ namespace BackerV2
 
                         if (Directory.Exists(_local) && Directory.Exists(_destination))
                         {
-                            local.Add(_local);
-                            destination.Add(_destination);
+                            line1.Add(_local);
+                            line2.Add(_destination);
                         }
                         else
                         {
                             try
                             {
                                 FileAttributes att = File.GetAttributes(_local);
-                                local.Add(_local);
-                                destination.Add(_destination);
+                                line1.Add(_local);
+                                line2.Add(_destination);
                             }
                             catch (Exception)
                             {

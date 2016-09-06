@@ -20,7 +20,7 @@ namespace BackerV2
         }
         public void transferFiles()
         {
-            string fixedDate = DateFixer.fix(DateTime.Now);
+            string fixedDate = DateFixer.dateToFolderFormat(DateTime.Now);
 
             for (int i = 0; i < _local.Count; i++)
             {

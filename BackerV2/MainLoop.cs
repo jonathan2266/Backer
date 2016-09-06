@@ -24,7 +24,7 @@ namespace BackerV2
             }
             catch (System.Exception e)
             {
-                __logger.log("Drive acces failure: " + e.Message);
+                __logger.log("Drive access failure: " + e.Message);
             }
             prepareThreads();
             
